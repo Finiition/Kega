@@ -15,15 +15,15 @@ def webcrawler(page):
     product_list = soup.find('ul', class_="products")
     for product in product_list.findAll("li"):
         name = product.find("span").text
-        print(name)
+        print('Nom prodtuit : ' + name)
 
         lien_product = product.find("a").get("href")
-        print(home + lien_product)
+        print('Lien produits : ' + home + lien_product)
 
         lien_image = product.find("img")
-        print(lien_image)#EN COURS
+        print('Lien image : ',  lien_image['data-src'])
 
-        print(product)
+        print('####################')
 
 
 webcrawler(home)
