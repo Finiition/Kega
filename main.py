@@ -37,6 +37,8 @@ def getDetailProduit(url):
     # div = soup.find('div', {"class": "medium-12 large-8 xlarge-8 xxlarge-8 columns"})
     nova = soup.findAll('a', {"href": "/nova"})
     novaScore = 0
+    # div = soup.find('div', {"class": "medium-12 large-8 xlarge-8 xxlarge-8 columns"})
+    nova = soup.findAll('a', {"href": "/nova"})
 
     for img in nova:
         imgNova = img.find('img')
