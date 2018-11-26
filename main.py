@@ -24,7 +24,6 @@ def webcrawler(page):
         lien = home + lien_product
         getProductInfos(lien)
         lien_image = details[i]["imgProduct"]
-        nutri_img = details[i]["imgNutriscore"]
         nutriscoreText =details[i]["nutriscoreText"]
         nova = details[i]["novaText"]
         if("4" in str(nova)):
@@ -40,17 +39,27 @@ def webcrawler(page):
             color = "green"
             nova_number = 1
 
+        if("A" in str(nutriscoreText)):
+            nutri_number = 1
+        if("B" in str(nutriscoreText)):
+            nutri_number = 2
+        if("C" in str(nutriscoreText)):
+            nutri_number = 3
+        if("D" in str(nutriscoreText)):
+            nutri_number = 4
+        if("E" in str(nutriscoreText)):
+            nutri_number = 5
+
+
         produits.append({
             "name":name,
             "url_product":lien_product,
             "lien_image":lien_image,
             "nova": nova,
             "color": color,
-            "nova_number":nova_number,
-            "nutri_img": nutri_img,
             "nutriscoreText": nutriscoreText,
         })
-        print(details[i]["novaText"])
+        print("nova number" + str(nova_number) + "//nutri number" + str(nutri_number))
         i = i+1
 
 def getProductInfos(url):
@@ -83,7 +92,6 @@ def getProductInfos(url):
             details.append({
                 "novaText": finalNova,
                 "imgProduct": imgProduct,
-                'imgNutriscore': final_nutriscore_img,
                 "nutriscoreText": final_nutriscore_alt
             })
 
