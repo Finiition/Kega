@@ -71,7 +71,6 @@ def webcrawler(page):
             "nova": nova,
             "score": score,
             "color": color,
-            "score":55,
             "nutriscoreText": nutriscoreText,
         })
         i = i+1
