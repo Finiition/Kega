@@ -1,0 +1,68 @@
+<head>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="sass.css"></head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Produits</title>
+<style>
+.header{
+    margin:20px;
+    padding:20px;
+}
+
+    .produit{
+        height:300px;
+        margin:20px;
+    }
+    .card-img-top{
+        height:200px;
+        width:100%;
+    }
+
+    .card{
+        margin:20px;
+        background-color:#aeff93;
+    }
+
+    .card:hover{
+        margin:20px;
+        background-color:#00993a;
+        color: white;
+    }
+
+    .product_img{
+        border-radius : 5px;
+    }
+</style>
+<body>
+   <div class="header container-fluid" >
+       <table>
+        <tr>
+            <td><img src="https://i.postimg.cc/jjYZ4zh5/Kega-Logo.png"/></td>
+            <td><h1>Vous voulez manger mieux, choisissez Kega!</h1></td>
+        </tr>
+       </table>
+   </div>
+
+
+   <div class="container-fluid">
+       <div class="row">
+           {% for produit in produits %}
+           <div class="col-3">
+               <div class="card" style="width: 18rem;">
+                   <div class="card-img-top">
+                       <img  id="id" src="{{produit.lien_image}}" alt="Card image cap">
+                   </div>
+                   <div class="card-body">
+                       <h5 class="card-title">{{produit.name}}</h5>
+                       <p class="card-text" style="color:{{produit.color}}">{{produit.nova}}</p>
+                       <a href="{{produit.lien}}" class="btn btn-primary">Afficher</a>
+                   </div>
+               </div>
+           </div>
+           {% endfor %}
+       </div>
+   </div>
+   </div>
+
+</body>
+</html>
