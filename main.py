@@ -98,6 +98,24 @@ def getProductInfos(url):
 
 
 
+
+def water(url):  # retourne True si l'élément est de l'eau, False sinon
+    eau = False
+    r = requests.get(url)
+    c = r.content
+    soup = BeautifulSoup(c, 'html.parser')
+    caractéristiques = soup.find('div', class_="medium-12 large-8 xlarge-8 xxlarge-8 columns")
+    for caractéristique in caractéristiques.findAll("a"):
+        categorie = caractéristique.text.lower()
+        if 'eaux' in categorie:
+            eau = True
+    return eau
+
+
+if water("https://fr.openfoodfacts.org/produit/3274080005003/eau-de-source-cristaline"): #exemple utilisation water()
+    score = 100
+    print("C'est de l'eau !")
+
 webcrawler(home)
 
 
@@ -108,3 +126,4 @@ def main():
 
 if __name__ == '__main__':
     app.run(host='localhost', port=4000)
+
