@@ -111,8 +111,8 @@ def water(url):  # retourne True si l'élément est de l'eau, False sinon
     soup = BeautifulSoup(c, 'html.parser')
     caracteristiques = soup.find('div', class_="medium-12 large-8 xlarge-8 xxlarge-8 columns")
     for caracteristique in caracteristiques.findAll("a"):
-        categorie = caracteristique.text.lower()
-        if 'eaux' in categorie:
+        categorie = caracteristique.get("href")
+        if categorie == '/categorie/eaux':
             eau = True
     return eau
 
@@ -125,7 +125,6 @@ def alcool(url):
     for caracteristique in caracteristiques.findAll("a"):
         categorie = caracteristique.get("href")
         if categorie == '/categorie/boissons-alcoolisees':
-            print(categorie)
             alc = True
     return alc
 
@@ -133,10 +132,14 @@ def alcool(url):
 if water("https://fr.openfoodfacts.org/produit/3274080005003/eau-de-source-cristaline"): #exemple utilisation water()
     score = 100
     print("C'est de l'eau !")
+else:
+    print("Ce n'est pas de l'eau")
 
 if alcool("https://fr.openfoodfacts.org/produit/20713546/genepis-des-alpes-saveur-des-regions"): #exemple utilisation alcool()
     score = 'null'
     print("C'est de l'alcool !")
+else:
+    print("Ce n'est pas de l'alcool")
 
 
 # webcrawler(home)
