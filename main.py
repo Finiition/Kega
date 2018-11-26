@@ -18,6 +18,9 @@ def webcrawler(page):
     soup = BeautifulSoup(c, 'html.parser')
     nutri_number = 0
     nova_number = 0
+    lien_image = ""
+    nova = ""
+    nutriscoreText = ""
     global numpage
     global produits
     global details
@@ -62,6 +65,8 @@ def webcrawler(page):
         score = int(float(getScore(nova_number, nutri_number, bio_number)))
         if water(lien):
             score = 100
+        elif alcool(lien):
+            score = 0
 
         if score < 26:
             color = 'red'
@@ -81,8 +86,6 @@ def webcrawler(page):
             "nutriscoreText": nutriscoreText,
         })
     numpage = numpage + 1
-
-
 
 
 def getProductInfos(url):
@@ -122,19 +125,30 @@ def water(url):  # retourne True si l'élément est de l'eau, False sinon
     r = requests.get(url)
     c = r.content
     soup = BeautifulSoup(c, 'html.parser')
-    caractéristiques = soup.find('div', class_="medium-12 large-8 xlarge-8 xxlarge-8 columns")
-    for caractéristique in caractéristiques.findAll("a"):
-        categorie = caractéristique.text.lower()
-        if 'eaux' in categorie:
+    caracteristiques = soup.find('div', class_="medium-12 large-8 xlarge-8 xxlarge-8 columns")
+    for caracteristique in caracteristiques.findAll("a"):
+        categorie = caracteristique.get("href")
+        if categorie == '/categorie/eaux':
             eau = True
     return eau
 
 
-while numpage < 10:
+def alcool(url):
+    alc = False
+    r = requests.get(url)
+    c = r.content
+    soup = BeautifulSoup(c, 'html.parser')
+    caracteristiques = soup.find('div', class_="medium-12 large-8 xlarge-8 xxlarge-8 columns")
+    for caracteristique in caracteristiques.findAll("a"):
+        categorie = caracteristique.get("href")
+        if categorie == '/categorie/boissons-alcoolisees':
+            alc = True
+    return alc
+
+
+while numpage < 52:
     print(home + str(numpage))
     webcrawler(home + str(numpage))
-#print("produits",produits)
-#print("details", details)
 
 @app.route("/")
 def main():
