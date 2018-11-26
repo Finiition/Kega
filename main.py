@@ -17,31 +17,42 @@ def webcrawler(page):
     soup = BeautifulSoup(c, 'html.parser')
     global produits;
     product_list = soup.find('ul', class_="products")
+    i = 0
     for product in product_list.findAll("li"):
         name = product.find("span").text
         lien_product = product.find("a").get("href")
         lien = home + lien_product
-        lien_image = getProductInfos(lien)
-        nova = getDetailProduit(lien)
+        getProductInfos(lien)
+        nova_number;
+        lien_image = details[i]["imgProduct"]
+        nutri_img = details[i]["imgNutriscore"]
+        nutriscoreText =details[i]["nutriscoreText"]
+        nova = details[i]["novaText"]
         if("4" in str(nova)):
             color = "red"
+            nova_number = 4
         if("3" in str(nova)):
             color = "orange"
+            nova_number = 3
         if("2" in str(nova)):
             color = "yellow"
+            nova_number = 2
         if("1" in str(nova)):
             color = "green"
-        i = 0
+            nova_number = 1
+
         produits.append({
             "name":name,
             "url_product":lien_product,
             "lien_image":lien_image,
             "nova": nova,
             "color": color,
-            #"nutri_img": details[i].imgNutriscore,
-            #"nutriscoreText": details[i].nutriscoreText,
+            "nova_number":nova_number,
+            "nutri_img": nutri_img,
+            "nutriscoreText": nutriscoreText,
         })
-        i=i+1
+        print(details[i]["novaText"])
+        i = i+1
 
 def getProductInfos(url):
     r = requests.get(url)
@@ -78,17 +89,6 @@ def getProductInfos(url):
             })
 
 
-def getDetailProduit(url):
-    r = requests.get(url)
-    c = r.content
-    soup = BeautifulSoup(c, 'html.parser')
-    nova = soup.findAll('a', {"href": "/nova"})
-    img = soup.findAll('img')
-
-    for img in nova:
-        imgNova = img.find('img')
-        if imgNova is not None:
-            return imgNova['alt'];
 
 
 
