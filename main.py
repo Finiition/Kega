@@ -23,7 +23,6 @@ def webcrawler(page):
         lien_product = product.find("a").get("href")
         lien = home + lien_product
         getProductInfos(lien)
-        nova_number;
         lien_image = details[i]["imgProduct"]
         nutri_img = details[i]["imgNutriscore"]
         nutriscoreText =details[i]["nutriscoreText"]
