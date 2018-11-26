@@ -4,10 +4,19 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>Produits</title>
 <style>
-.header{
-    margin:20px;
-    padding:20px;
-}
+    .header{
+        margin:20px;
+        padding:20px;
+    }
+
+    .score{
+        border-radius:50%;
+        padding:50px
+        height:100px;
+        width:40px;
+        text-align:center;
+        font-size: 25px;
+    }
 
     .produit{
         height:300px;
@@ -15,18 +24,16 @@
     }
     .card-img-top{
         height:200px;
-        width:100%;
+        background-color:#EBEBEB;
     }
 
     .card{
         margin:20px;
-        background-color:#aeff93;
     }
 
     .card:hover{
         margin:20px;
-        background-color:#00993a;
-        color: white;
+        transform: scale(1.05);
     }
 
     .product_img{
@@ -49,12 +56,14 @@
            {% for produit in produits %}
            <div class="col-3">
                <div class="card" style="width: 18rem;">
-                   <div class="card-img-top">
-                       <img  id="id" src="{{produit.lien_image}}" alt="Card image cap">
+                   <div class="card-img-top text-center">
+                       <img src="{{produit.lien_image}}" alt="Card image cap">
                    </div>
                    <div class="card-body">
                        <h5 class="card-title">{{produit.name}}</h5>
-                       <p class="card-text" style="color:{{produit.color}}">{{produit.nova}}</p>
+                       <div class="score" style="background-color:{{produit.color}}">
+                           <b><p>   {{produit.score}}   </p></b>
+                       </div>
 
                        <a href="{{produit.lien}}" class="btn btn-primary">Afficher</a>
                    </div>

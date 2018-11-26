@@ -57,6 +57,7 @@ def webcrawler(page):
             "lien_image":lien_image,
             "nova": nova,
             "color": color,
+            "score":55,
             "nutriscoreText": nutriscoreText,
         })
         print("nova number" + str(nova_number) + "//nutri number" + str(nutri_number))
@@ -70,7 +71,7 @@ def getProductInfos(url):
     nova = soup.findAll('a', {"href": "/nova"})
     nutriscore = soup.findAll('a', {"href": "/nutriscore"})
     imgProduct = soup.find('img',{"id":"og_image"})["data-src"]
-
+    bio = soup.find('a', {"href": "/label/bio"})
     for img in nova:
         imgNova = img.find('img')
         if imgNova is not None:
@@ -83,19 +84,17 @@ def getProductInfos(url):
             final_nutriscore_alt = imgNutriscore["alt"];
 
 
-            #print("Nova ALT : "+str(finalNova)+ "///// nutriscore SRC : " +
-             #     str(final_nutriscore_img) + "///// nutriscore ALT :"
-              #    + str(final_nutriscore_alt)+ " ///// img product : "
-               #   +str(imgProduct));
+    if bio is None:
+        bioboolean = 0;
+    else:
+        bioboolean = 1;
 
-
-            details.append({
-                "novaText": finalNova,
-                "imgProduct": imgProduct,
-                "nutriscoreText": final_nutriscore_alt
-            })
-
-
+    details.append({
+        "novaText": finalNova,
+        "imgProduct": imgProduct,
+        "nutriscoreText": final_nutriscore_alt,
+        "bioboolean":bioboolean
+    })
 
 
 
