@@ -146,12 +146,21 @@ def alcool(url):
     return alc
 
 
-while numpage < 52:
-    print(home + str(numpage))
-    webcrawler(home + str(numpage))
+def run(runPage):
+    print(runPage)
+    webcrawler(home + runPage)
+
 
 @app.route("/")
 def main():
+    run(str(1))
+    return render_template('produits.html', produits=produits)
+
+
+@app.route("/<runpage>")
+def pagination(runpage):
+    produits.clear()
+    run(str(runpage))
     return render_template('produits.html', produits=produits)
 
 
