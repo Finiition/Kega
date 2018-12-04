@@ -100,7 +100,7 @@ def getProductInfos(url):
     soup = BeautifulSoup(c, 'html.parser')
     nova = soup.findAll('a', {"href": "/nova"})
     nutriscore = soup.findAll('a', {"href": "/nutriscore"})
-    imgProduct = soup.find('img', {"id": "og_image"})["data-src"]
+    imgProduct = soup.find('img', {"id": "og_image"})["data-src"] or "http://www.friendlyfoodqatar.com/mt-content/uploads/2017/04/no-image.jpg"
     for img in nova:
         imgNova = img.find('img')
         if imgNova is not None:
