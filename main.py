@@ -7,6 +7,7 @@ from flask import Flask, render_template
 home = 'https://fr.openfoodfacts.org/'
 
 numpage = 1
+page_number = 1
 app = Flask(__name__)
 produits = []
 details = []
@@ -24,6 +25,7 @@ def webcrawler(page):
     global numpage
     global produits
     global details
+    global page_number
     bio = soup.find('a', {"href": "/label/bio"})
     # Liste des produits
     product_list = soup.find('ul', class_="products")
@@ -85,7 +87,10 @@ def webcrawler(page):
             "color": color,
             "nutriscoreText": nutriscoreText,
         })
+        print(name)
     numpage = numpage + 1
+    page_number = page_number +1
+
 
 
 def getProductInfos(url):
@@ -154,14 +159,13 @@ def run(runPage):
 @app.route("/")
 def main():
     run(str(1))
-    return render_template('produits.html', produits=produits)
+    return render_template('produits.html', produits=produits,page_number = page_number)
 
 
 @app.route("/<runpage>")
 def pagination(runpage):
-    produits.clear()
     run(str(runpage))
-    return render_template('produits.html', produits=produits)
+    return render_template('produits.html', produits=produits, page_number=page_number)
 
 
 if __name__ == '__main__':
