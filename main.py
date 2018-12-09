@@ -1,8 +1,10 @@
 # USING PYTHON 3.7
 
 import requests
+import json
 from bs4 import BeautifulSoup
 from flask import Flask, render_template
+import re
 
 home = 'https://fr.openfoodfacts.org/'
 
@@ -88,6 +90,17 @@ def webcrawler(page):
             "nutriscoreText": nutriscoreText,
         })
         print(name)
+        jsonResult = open("result.json","w")
+
+        produitsParse = str(produits)
+        # print(produitsParse)
+        # parsed = json.loads(produitsParse)
+
+
+        # Pas de virgule delimitant les produits dans le json
+
+        # jsonResult.write(json.dumps(parsed, indent=4, sort_keys=True))
+        jsonResult.write(produitsParse)
     numpage = numpage + 1
     page_number = page_number +1
 
